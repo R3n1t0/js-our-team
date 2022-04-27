@@ -6,10 +6,22 @@ const members = [];
 
 
 // Ciclo For per inserire nel html la struttura della card prendendo quelli presenti nel members
-addMemberButton.addEventListener("click", memberdGenerator);{
+addMemberButton.addEventListener("click", memberdGenerator);
+
+//Funzione per generare le Card e li pusho nell members Array. Con un ciclo for le riscrivo nel html.
+function memberdGenerator(){
+  
+  const newMember = {
+    name: document.getElementById("name").value,
+    role: document.getElementById("role").value,
+    image: document.getElementById("image").value
+  }
+
+  members.push(newMember);
+
   for(let i in members){
 
-    container.innerHTML += 
+    const output = 
     `
     <div class="team-card">
       <div class="card-image">
@@ -21,18 +33,10 @@ addMemberButton.addEventListener("click", memberdGenerator);{
       </div>
     </div>
     `
-  }
-}
 
-//Funzione per generare le Card e li pusho nell members Array.
-function memberdGenerator(){
+    container.innerHTML += output;
+  }
+
   
-  const newMember = {
-    name: document.getElementById("name").value,
-    role: document.getElementById("role").value,
-    image: document.getElementById("image").value
-  }
-
-  members.push(newMember);
-  console.log(members);
+  
 }
