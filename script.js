@@ -1,42 +1,100 @@
+const members = [
+  {
+    name: 'Wayne Barnett',
+    role: 'Founder & CEO',
+    image: 'wayne-barnett-founder-ceo.jpg',
+  },
+  {
+    name: 'Angela Caroll',
+    role: 'Chief Editor',
+    image: 'angela-caroll-chief-editor.jpg',
+  },
+  {
+    name: 'Walter Gordon',
+    role: 'Office Manager',
+    image: 'walter-gordon-office-manager.jpg',
+  },
+  {
+    name: 'Angela Lopez',
+    role: 'Social Media Manager',
+    image: 'angela-lopez-social-media-manager.jpg',
+  },
+  {
+    name: 'Scott Estrada',
+    role: 'Developer',
+    image: 'scott-estrada-developer.jpg',
+  },
+  {
+    name: 'Barbara Ramos',
+    role: 'Graphic Designer',
+    image: 'barbara-ramos-graphic-designer.jpg',
+  },
+];
+
 const container = document.querySelector(".team-container")
+
 const addMemberButton = document.getElementById("addMemberButton")
+addMemberButton.addEventListener("click", memberGenerator);
 
+inserTeam();
 
-const members = [];
-
-
-// Ciclo For per inserire nel html la struttura della card prendendo quelli presenti nel members
-addMemberButton.addEventListener("click", memberdGenerator);
-
-//Funzione per generare le Card e li pusho nell members Array. Con un ciclo for le riscrivo nel html.
-function memberdGenerator(){
+//Funzione per inserire tutto il Team nella struttura html
+function inserTeam(){
   
-  const newMember = {
-    name: document.getElementById("name").value,
-    role: document.getElementById("role").value,
-    image: document.getElementById("image").value
+  container.innerHTML= "";
+
+  for(let member of members){
+    insertMember(member);
   }
+}
 
-  members.push(newMember);
+// Funzione per inserire un nuovo membro nella struttura html
+function insertMember(member){
 
-  for(let i in members){
+  let output = container.innerHTML;
 
-    const output = 
-    `
-    <div class="team-card">
-      <div class="card-image">
-        <img src="${members[i].image}"/>
-      </div>
-      <div class="card-text">
-        <h3>${members[i].name}</h3>
-        <p>${members[i].role}</p>
-      </div>
+  const {name, role, image} = member;
+
+  output += `
+  <div class="team-card">
+    <div class="card-image">
+      <img
+        src="img/${image}"
+        alt="${name}"
+      />
     </div>
-    `
+    <div class="card-text">
+      <h3>${name}</h3>
+      <p>${role}</p>
+    </div>
+  </div>
+  `;
+  
+  container.innerHTML = output;
+}
 
-    container.innerHTML += output;
+//Funzione per creare i nuovi membri e aggiungerli al Team
+function memberGenerator(){
+  
+  const name = document.getElementById("name").value;
+  const role = document.getElementById("role").value;
+  const image = document.getElementById("image").value;
+
+  const newMember = {
+    name,
+    role,
+    image,
   }
+  
+  insertMember(newMember);
+  members.push(newMember);
+  
+  reset();
+}
 
-  
-  
+// Funzione per ressettare
+function reset(){
+  document.getElementById('name').value = '';
+  document.getElementById('role').value = '';
+  document.getElementById('image').value = '';
 }
